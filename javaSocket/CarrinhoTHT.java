@@ -15,65 +15,81 @@ import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 
 /**
- *
- * @author Ricardo
+ * <p>
+ * <b>Socket</b> criado em java para fazer a comunicação entre o RaspberryPi e o
+ * aplicativo android. A comunicação é feita através de um simples socket java e
+ * a utilização da API Pi4J que realiza a interface entre o <b>hardware</b>
+ * (GPIO) e o <b>software</b> (Aplicativo)
+ * </p>
+ * 
+ * @author Matheus Marabesi <matheus.marabesi@gmail.com>
+ * @author Pedro Padilha
+ * @author Ricardo Ogliari <rogliariping@gmail.com>
+ * @link http://pi4j.com/
  */
 public class CarrinhoTHT {
 
-    public static void main(String[] args) throws InterruptedException {
-	final GpioController gpio = GpioFactory.getInstance();
+	public static void main(String[] args) throws InterruptedException {
+		final GpioController gpio = GpioFactory.getInstance();
 
-        final GpioPinDigitalOutput frente = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_15, "MyLED", PinState.HIGH);
-	final GpioPinDigitalOutput tras = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16, "MyLED", PinState.HIGH);
-	final GpioPinDigitalOutput direita = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "MyLED", PinState.HIGH);
-	final GpioPinDigitalOutput esquerda = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "MyLED", PinState.HIGH);
+		final GpioPinDigitalOutput frente = gpio.provisionDigitalOutputPin(
+				RaspiPin.GPIO_15, "MyLED", PinState.HIGH);
+		final GpioPinDigitalOutput tras = gpio.provisionDigitalOutputPin(
+				RaspiPin.GPIO_16, "MyLED", PinState.HIGH);
+		final GpioPinDigitalOutput direita = gpio.provisionDigitalOutputPin(
+				RaspiPin.GPIO_01, "MyLED", PinState.HIGH);
+		final GpioPinDigitalOutput esquerda = gpio.provisionDigitalOutputPin(
+				RaspiPin.GPIO_04, "MyLED", PinState.HIGH);
 
-	OutputStreamWriter output;
-        BufferedWriter writer;
-        
-        BufferedReader leitorLinhas;
-        InputStreamReader leitorCaracteres;
-        InputStream leitorSocket;
-        
-        try {
-            ServerSocket server = new ServerSocket(8282);
-	   System.out.println("Starting socket on port 8282");
-            while (true){
-		System.out.println("Waiting connection");
-                Socket s = server.accept();
-                System.out.println(server.getInetAddress());
-                
-		leitorSocket = s.getInputStream();
-		leitorCaracteres = new InputStreamReader(leitorSocket);
-		leitorLinhas = new BufferedReader(leitorCaracteres);
-		String recebeu = leitorLinhas.readLine();
+		OutputStreamWriter output;
+		BufferedWriter writer;
+
+		BufferedReader leitorLinhas;
+		InputStreamReader leitorCaracteres;
+		InputStream leitorSocket;
 		
-		System.out.println(recebeu);
+		int port = 8282;
+		
+		try {
+			ServerSocket server = new ServerSocket(port);
+			System.out.println("Starting socket on port 8282");
+			
+			while (true) {
+				System.out.println("Waiting connection");
+				Socket s = server.accept();
+				System.out.println(server.getInetAddress());
 
-                switch(recebeu) {
+				leitorSocket = s.getInputStream();
+				leitorCaracteres = new InputStreamReader(leitorSocket);
+				leitorLinhas = new BufferedReader(leitorCaracteres);
+				String recebeu = leitorLinhas.readLine();
 
- 		case "F": {
-                	frente.toggle();
-                	break;
-                }
-		case "T": {
-			tras.toggle();
-			break;
+				System.out.println(recebeu);
+
+				switch (recebeu) {
+
+				case "F": {
+					frente.toggle();
+					break;
+				}
+				case "T": {
+					tras.toggle();
+					break;
+				}
+
+				case "D": {
+					direita.toggle();
+					break;
+				}
+				case "E": {
+					esquerda.toggle();
+					break;
+				}
+
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 		}
-
-		case "D": {
-			direita.toggle();
-			break;
-		}
-		case "E": {
-			esquerda.toggle();
-			break;
-		}
-
-            }
-}
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+	}
 }
