@@ -6,7 +6,7 @@
 <html>
   <head>
     <title><?php echo CAM_STRING; ?></title>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
   </head>
   <body onload="setTimeout('init();', 100);">
     <center>
