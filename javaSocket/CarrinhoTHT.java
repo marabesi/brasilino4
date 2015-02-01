@@ -23,7 +23,7 @@ import com.pi4j.io.gpio.RaspiPin;
  * </p>
  * 
  * @author Matheus Marabesi <matheus.marabesi@gmail.com>
- * @author Pedro Padilha
+ * @author Pedro Padilha <pedropadilha@me.com>
  * @author Ricardo Ogliari <rogliariping@gmail.com>
  * @link http://pi4j.com/
  */
