@@ -1,3 +1,9 @@
 .buildpath
 .project
 .settings/
+aplicativoAndroid/.gradle
+aplicativoAndroid/local.properties
+aplicativoAndroid/.idea/workspace.xml
+aplicativoAndroid/.idea/libraries
+aplicativoAndroid.DS_Store
+aplicativoAndroid/build
