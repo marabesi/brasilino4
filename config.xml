@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="br.com.brasilino4" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Brasilino 4.0</name>
+    <description>
+        Brasilino é um projeto derivado do Brasilino desenvolvido pelo Jeff Prestes e a equipe do THT que foi apresentado na Campus Party 2015. Brasilino é um carrinho de controle remoto controlado por um aplicativo e utilizando raspberry/arduino e uma ponte H L298N. Em sua versão 4.0 brasilino recebeu um aplicativo híbrido desenvolvido com apache cordova.
+    </description>
+    <author email="matheus.marabesi@gmail.com" href="http://marabesi.com">
+        THT member
+    </author>
+    <author email="pfveiga7@gmail.com" href="https://www.facebook.com/fernando.veiga.3950?fref=ts">
+        THT member
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="orientation" value="landscape" />
+</widget>
