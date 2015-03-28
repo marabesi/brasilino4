@@ -31,6 +31,7 @@
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/_where-is-www.txt \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/lib \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/css \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/bower_components \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/partials \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/menu.html \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/index.html \
@@ -107,6 +108,8 @@
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/lib/ionic/fonts/ionicons.ttf \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/lib/ionic/fonts/ionicons.svg \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/css/index.css \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/bower_components/ng-websocket \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/bower_components/ng-websocket/ng-websocket.js \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/partials/main.html \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/js/app.js \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/assets/www/js/controller \

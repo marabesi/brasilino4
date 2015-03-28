@@ -1,4 +1,11 @@
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes.dex : \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/brasilino4/R$drawable.class \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/brasilino4/CordovaApp.class \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/brasilino4/BuildConfig.class \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/brasilino4/R.class \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/brasilino4/R$xml.class \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/brasilino4/R$string.class \
+/media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/brasilino4/R$attr.class \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/hackpi/R$drawable.class \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/hackpi/CordovaApp.class \
 /media/matheus/Development/CPBR8/brasilino4/platforms/android/ant-build/classes/br/com/hackpi/BuildConfig.class \

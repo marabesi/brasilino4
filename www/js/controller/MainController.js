@@ -1,5 +1,5 @@
 hackpi.factory('brasilinoSocket', ['$websocket', function($websocket) {
-    var url = 'ws://echo.websocket.org';
+    var url = 'ws://192.168.0.105:9002';
     var brasilinoWs = $websocket.$new(url); 
 
     brasilinoWs.$on('$open', function() {
@@ -14,20 +14,8 @@ hackpi.factory('brasilinoSocket', ['$websocket', function($websocket) {
 }]);
 
 hackpi.controller('MainController', ['$scope', 'brasilinoSocket', function($scope, brasilinoSocket) {
-    $scope.moveLeft = function() {
-        brasilinoSocket.$emit('pong', 'EE');
-    };
-    
-    $scope.moveRight = function() {
-        brasilinoSocket.$emit('pong', 'DD');
-    };
-    
-    $scope.moveUp = function() {
-        brasilinoSocket.$emit('pong', 'AA');
-    };
-    
-    $scope.moveDown = function() {
-        brasilinoSocket.$emit('pong', 'FF');
+    $scope.move = function(direction) {
+        brasilinoSocket.$emit('pong', direction);
     };
     
     $scope.close = function() {

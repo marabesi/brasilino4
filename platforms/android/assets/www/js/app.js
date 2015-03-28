@@ -1,6 +1,6 @@
 'use strict';
 
-var hackpi = angular.module('hackpi', ['ionic']);
+var hackpi = angular.module('hackpi', ['ionic', 'ngWebsocket']);
 
 hackpi.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
