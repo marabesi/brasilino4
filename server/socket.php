@@ -44,13 +44,9 @@ while (true)
 		{
 			$received_text = unmask($buf); 
 			
-            if ($received_text == 'D' || $received_text == 'E' ||
-               $received_text == 'A' || $received_text == 'F') 
-            {
-                $fp = fopen('/dev/ttyUSB0', 'r+');
-                fwrite($fp, $received_text);
-                fclose($fp);
-            }
+            $fp = fopen('/dev/ttyUSB0', 'w+');
+            fwrite($fp, $received_text);
+            fclose($fp);
             
             $createResponse = json_encode(array('server' => $ip . ' : ' . utf8_encode($received_text)));
             
