@@ -1,5 +1,5 @@
 hackpi.factory('brasilinoSocket', ['$websocket', function($websocket) {
-    var url = 'ws://192.168.0.105:9002';
+    var url = 'ws://192.168.43.132:9002';
     var brasilinoWs = $websocket.$new(url); 
 
     brasilinoWs.$on('$open', function() {

@@ -8990,4 +8990,12 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   transition: none !important; }
 
 .camera-view {
-  min-height: 17em; }
+  min-height: 18.4em; }
+
+.brasilino-camera {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #7D7D7D; }
+
+/*598 x 335*/
