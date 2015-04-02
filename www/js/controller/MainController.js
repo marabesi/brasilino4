@@ -1,4 +1,4 @@
-hackpi.factory('brasilinoSocket', ['$websocket', function($websocket) {
+brasilino4.factory('brasilinoSocket', ['$websocket', function($websocket) {
     var url = 'ws://192.168.43.132:9002';
     var brasilinoWs = $websocket.$new(url); 
 
@@ -13,7 +13,7 @@ hackpi.factory('brasilinoSocket', ['$websocket', function($websocket) {
     return brasilinoWs;
 }]);
 
-hackpi.controller('MainController', ['$scope', 'brasilinoSocket', function($scope, brasilinoSocket) {
+brasilino4.controller('MainController', ['$scope', 'brasilinoSocket', function($scope, brasilinoSocket) {
     $scope.move = function(direction) {
         brasilinoSocket.$emit('pong', direction);
     };

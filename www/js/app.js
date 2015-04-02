@@ -1,15 +1,15 @@
 'use strict';
 
-var hackpi = angular.module('hackpi', ['ionic', 'ngWebsocket']);
+var brasilino4 = angular.module('brasilino4', ['ionic', 'ngWebsocket']);
 
-hackpi.config(function ($stateProvider, $urlRouterProvider) {
+brasilino4.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('hackpi', {
-            url: '/hackpi',
+        .state('brasilino4', {
+            url: '/brasilino4',
             abstract: true,
             templateUrl: 'menu.html'
         })
-        .state('hackpi.main', {
+        .state('brasilino4.main', {
             url: '/main',
             views: {
                 'menuContent': {
@@ -19,5 +19,5 @@ hackpi.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
 
-    $urlRouterProvider.otherwise('/hackpi/main');
+    $urlRouterProvider.otherwise('/brasilino4/main');
 });
