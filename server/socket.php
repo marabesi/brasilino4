@@ -1,6 +1,11 @@
 <?php
 
-$host = 'localhost'; 
+shell_exec('gpio mode 2 out'); //up
+shell_exec('gpio mode 1 out'); //down
+shell_exec('gpio mode 4 out'); //right
+shell_exec('gpio mode 3 out'); //left
+
+$host = 'localhost';
 $port = '9002';
 $null = NULL;
 
@@ -16,56 +21,76 @@ $clients = array($socket);
 
 echo 'Host: ' . $host . ' port: ' . $port . PHP_EOL;
 
-while (true) 
+while (true)
 {
 	$changed = $clients;
-        
+
 	socket_select($changed, $null, $null, 0, 10);
-	
-	if (in_array($socket, $changed)) 
+
+	if (in_array($socket, $changed))
     {
 		$socket_new = socket_accept($socket);
 		$clients[] = $socket_new;
-		
+
 		$header = socket_read($socket_new, 1024);
 		perform_handshaking($header, $socket_new, $host, $port);
-		
+
 		socket_getpeername($socket_new, $ip);
 		$response = mask(json_encode(array('server' => $ip . ' connected')));
 		send_message($response);
-		
+
 		$found_socket = array_search($socket, $changed);
 		unset($changed[$found_socket]);
 	}
-	
-	foreach ($changed as $changed_socket) 
-    {		
+
+	foreach ($changed as $changed_socket)
+    {
 		while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)
 		{
-			$received_text = unmask($buf); 
-			
-            $fp = fopen('/dev/ttyUSB0', 'w+');
-            fwrite($fp, $received_text);
-            fclose($fp);
-            
-            $createResponse = json_encode(array('server' => $ip . ' : ' . utf8_encode($received_text)));
-            
-            echo $createResponse . PHP_EOL;
-            
+			$received_text = unmask($buf);
+			$jsonObject = json_decode($received_text);
+
+			if (strpos($jsonObject->data, '[EE]') !== false ||
+					strpos($jsonObject->data, '[DD]') !== false ||
+					strpos($jsonObject->data, '[AA]') !== false ||
+					strpos($jsonObject->data, '[FF]') !== false)
+			{
+				if ($jsonObject->data == '[AA]') {
+            shell_exec('gpio write 2 1');
+            shell_exec('gpio write 1 1');
+        }
+        if ($jsonObject->data == '[FF]') {
+            shell_exec('gpio write 2 0');
+            shell_exec('gpio write 1 1');
+        }
+        if ($jsonObject->data == '[EE]') {
+            shell_exec('gpio write 4 0');
+            shell_exec('gpio write 3 1');
+        }
+        if ($jsonObject->data == '[FF]') {
+            shell_exec('gpio write 3 0');
+            shell_exec('gpio write 4 1');
+        }
+			}
+
+      $createResponse = json_encode(array('server' => $ip . ' : ' . utf8_encode($received_text)));
+
+      echo $received_text . PHP_EOL;
+
 			$response_text = mask($createResponse);
 			send_message($response_text);
-            
+
 			break 2;
 		}
-		
+
 		$buf = @socket_read($changed_socket, 1024, PHP_NORMAL_READ);
-        
-		if ($buf === false) 
+
+		if ($buf === false)
         {
 			$found_socket = array_search($changed_socket, $clients);
 			socket_getpeername($changed_socket, $ip);
 			unset($clients[$found_socket]);
-			
+
 			$response = mask(json_encode(array('server' => $ip . ' disconnected')));
 			send_message($response);
 		}
@@ -84,7 +109,7 @@ function send_message($msg)
 	return true;
 }
 
-function unmask($text) 
+function unmask($text)
 {
 	$length = ord($text[1]) & 127;
 	if($length == 126) {
@@ -110,7 +135,7 @@ function mask($text)
 {
 	$b1 = 0x80 | (0x1 & 0x0f);
 	$length = strlen($text);
-	
+
 	if($length <= 125)
 		$header = pack('CC', $b1, $length);
 	elseif($length > 125 && $length < 65536)
