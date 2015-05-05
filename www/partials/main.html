@@ -1,20 +1,20 @@
 <ion-view hide-nav-bar="true">
     <ion-content ng-controller="MainController">
-       <iframe src="../img/logo.png" class="brasilino-camera"></iframe>
+       <iframe ng-src="{{cameraAddress | trusted}}" class="brasilino-camera"></iframe>
         <div class="row responsive-sm camera-view"></div>
         <div class="row responsive-sm">
             <div class="col">
-                <button class="button button-block ion-chevron-left" ng-click="move('EE')"></button>
+                <button class="button button-block ion-chevron-left" ng-touchstart="move('[EES]')" ng-touchend="release('[EEE]')"></button>
             </div>
             <div class="col">
-                <button class="button button-block ion-chevron-right" ng-click="move('DD')"></button>
+                <button class="button button-block ion-chevron-right" ng-touchstart="move('[DDS]')" ng-touchend="release('[DDE]')"></button>
             </div>
             <div class="col"></div>
             <div class="col">
-                <button class="button button-block ion-chevron-up" ng-click="move('AA')"></button>
+                <button class="button button-block ion-chevron-up" ng-touchstart="move('[AAS]')" ng-touchend="release('[AAE]')"></button>
             </div>
             <div class="col">
-                <button class="button button-block ion-chevron-down" ng-click="move('FF')"></button>
+                <button class="button button-block ion-chevron-down" ng-touchstart="move('[FFS]')" ng-touchend="release('[FFE]')"></button>
             </div>
         </div>
     </ion-content>

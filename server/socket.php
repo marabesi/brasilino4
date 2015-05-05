@@ -1,13 +1,18 @@
 <?php
 
-shell_exec('gpio mode 2 out'); //up
-shell_exec('gpio mode 1 out'); //down
-shell_exec('gpio mode 4 out'); //right
-shell_exec('gpio mode 3 out'); //left
+define('FORWARD',  25);
+define('BACKWARD', 24);
+define('LEFT',     23);
+define('RIGHT',    22);
 
 $host = 'localhost';
 $port = '9002';
 $null = NULL;
+
+shell_exec('gpio mode ' . RIGHT . ' out');
+shell_exec('gpio mode ' . LEFT . ' out');
+shell_exec('gpio mode ' . BACKWARD . ' out');
+shell_exec('gpio mode ' . FORWARD . ' out');
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
@@ -19,7 +24,7 @@ socket_listen($socket);
 
 $clients = array($socket);
 
-echo 'Host: ' . $host . ' port: ' . $port . PHP_EOL;
+echo 'Socket listening on host: ' . $host . ' port: ' . $port . PHP_EOL;
 
 while (true)
 {
@@ -50,26 +55,41 @@ while (true)
 			$received_text = unmask($buf);
 			$jsonObject = json_decode($received_text);
 
-			if (strpos($jsonObject->data, '[EE]') !== false ||
-					strpos($jsonObject->data, '[DD]') !== false ||
-					strpos($jsonObject->data, '[AA]') !== false ||
-					strpos($jsonObject->data, '[FF]') !== false)
+			if (strpos($jsonObject->data, '[EES]') !== false ||
+					strpos($jsonObject->data, '[DDS]') !== false ||
+					strpos($jsonObject->data, '[AAS]') !== false ||
+					strpos($jsonObject->data, '[FFS]') !== false)
 			{
-				if ($jsonObject->data == '[AA]') {
-            shell_exec('gpio write 2 1');
-            shell_exec('gpio write 1 1');
+				if ($jsonObject->data == '[AAS]') {
+            shell_exec('gpio write ' . FORWARD . ' 1');
         }
-        if ($jsonObject->data == '[FF]') {
-            shell_exec('gpio write 2 0');
-            shell_exec('gpio write 1 1');
+        if ($jsonObject->data == '[DDS]') {
+            shell_exec('gpio write ' . RIGHT . ' 1');
         }
-        if ($jsonObject->data == '[EE]') {
-            shell_exec('gpio write 4 0');
-            shell_exec('gpio write 3 1');
+        if ($jsonObject->data == '[EES]') {
+            shell_exec('gpio write ' . LEFT . ' 1');
         }
-        if ($jsonObject->data == '[FF]') {
-            shell_exec('gpio write 3 0');
-            shell_exec('gpio write 4 1');
+        if ($jsonObject->data == '[FFS]') {
+						shell_exec('gpio write ' . BACKWARD . ' 1');
+        }
+			}
+
+			if (strpos($jsonObject->data, '[EEE]') !== false ||
+					strpos($jsonObject->data, '[DDE]') !== false ||
+					strpos($jsonObject->data, '[AAE]') !== false ||
+					strpos($jsonObject->data, '[FFE]') !== false)
+			{
+				if ($jsonObject->data == '[AAE]') {
+            shell_exec('gpio write ' . FORWARD . ' 0');
+        }
+        if ($jsonObject->data == '[DDE]') {
+            shell_exec('gpio write ' . RIGHT . ' 0');
+        }
+        if ($jsonObject->data == '[EEE]') {
+            shell_exec('gpio write ' . LEFT . ' 0');
+        }
+        if ($jsonObject->data == '[FFE]') {
+						shell_exec('gpio write ' . BACKWARD . ' 0');
         }
 			}
 
